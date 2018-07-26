@@ -1,2 +1,2 @@
 # MEAN-Stack-Full-App
-MongoDB, ExpressJs, AngularJs and NodeJs app
+MongoDB, ExpressJs, AngularJs and NodeJs app 
