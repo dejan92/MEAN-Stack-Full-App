@@ -1,0 +1,46 @@
+<div class="page-header">User Registration</div>
+
+<form ng-submit="register.registerUser(newUser)">
+    <div id="form-group">
+        <label for="name">Name:</label>
+        <input type="text" name="name" class="form-control" ng-model="register.newUser.name">
+    </div>
+    <div id="form-group">
+        <label for="name">Email:</label>
+        <input type="text" name="email" class="form-control" ng-model="register.newUser.email">
+    </div>
+    <div id="form-group">
+        <label for="name">Username:</label>
+        <input type="text" name="username" class="form-control" ng-model="register.newUser.username">
+    </div>
+    <div id="form-group">
+        <label for="name">Password:</label>
+        <input type="password" name="password" class="form-control" ng-model="register.newUser.password">
+    </div>
+    <div id="form-group">
+        <label for="name">Confirm:</label>
+        <input type="password" name="password2" class="form-control" ng-model="register.newUser.password2">
+    </div>
+    <!-- <input type="submit" value="Register" class="btn btn-primary"> -->
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>
+
+<br>
+
+<div class="jumbotron text-center" ng-show="register.loading">
+    <span class="glyphicon gplyphicon-repeat spinner">
+        <p>Loading ... </p>
+    </span>
+</div>
+
+<div class="row show-hide-message" ng-show="register.successMsg">
+    <div class="alert alert-success">
+        {{ register.successMsg }}
+    </div>
+</div>
+
+<div class="row show-hide-message" ng-show="register.errorMsg">
+    <div class="alert alert-danger">
+        {{ register.errorMsg }}
+    </div>
+</div>
