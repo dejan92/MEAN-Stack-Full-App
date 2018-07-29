@@ -26,7 +26,7 @@ mongoose.connect('mongodb://localhost:27017/mean-full-app', {
     }
 });
 
-app.get('/', (req,res)=>{
+app.get('*', (req,res)=>{
     res.sendFile(path.join(__dirname, '/public/app/views/index.html'));
 })
 

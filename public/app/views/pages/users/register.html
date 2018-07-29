@@ -3,23 +3,23 @@
 <form ng-submit="register.registerUser(newUser)">
     <div id="form-group">
         <label for="name">Name:</label>
-        <input type="text" name="name" class="form-control" ng-model="register.newUser.name">
+        <input type="text" name="name" class="form-control" placeholder="please enter name" ng-model="register.newUser.name">
     </div>
     <div id="form-group">
         <label for="name">Email:</label>
-        <input type="text" name="email" class="form-control" ng-model="register.newUser.email">
+        <input type="text" name="email" class="form-control" placeholder="please enter email" ng-model="register.newUser.email">
     </div>
     <div id="form-group">
         <label for="name">Username:</label>
-        <input type="text" name="username" class="form-control" ng-model="register.newUser.username">
+        <input type="text" name="username" class="form-control" placeholder="please enter username" ng-model="register.newUser.username">
     </div>
     <div id="form-group">
         <label for="name">Password:</label>
-        <input type="password" name="password" class="form-control" ng-model="register.newUser.password">
+        <input type="password" name="password" class="form-control" placeholder="please enter password" ng-model="register.newUser.password">
     </div>
     <div id="form-group">
         <label for="name">Confirm:</label>
-        <input type="password" name="password2" class="form-control" ng-model="register.newUser.password2">
+        <input type="password" name="password2" class="form-control" placeholder="please confirm password" ng-model="register.newUser.password2">
     </div>
     <!-- <input type="submit" value="Register" class="btn btn-primary"> -->
     <button type="submit" class="btn btn-primary">Register</button>
