@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 let User = require('../models/user');
+const jwt = require('jsonwebtoken');
+
+let secret = 'mysecret';
 
 //user registration route
 router.post('/users', (req, res) => {
@@ -24,13 +27,14 @@ router.post('/users', (req, res) => {
                 //.status(409)
                 res.json({
                     success: false,
-                    message: 'Username or Email already exist'
+                    message: `'Username or Email already exist' , ${err}`
                 });
             } else {
                 //.status(201)
                 res.json({
                     success: true,
                     message: 'User created'
+                    //error - it saves the password as plain text .. 
                 });
             }
         });
@@ -52,27 +56,62 @@ router.post('/authenticate', function (req, res) {
         } else if (user) {
             if (req.body.password) {
                 let validPassword = user.comparePassword(req.body.password);
+                //return validPassword;
             } else {
                 res.json({
                     success: false,
                     message: 'No password provided'
                 });
             }
-            
-            
+
+
             if (!validPassword) {
                 res.json({
                     success: false,
                     message: 'Could not authenticate password'
                 })
             } else {
+                let token = jwt.sign({
+                    username: user.username,
+                    email: user.email
+                }, secret, {
+                    expiresIn: '24h'
+                });
                 res.json({
                     success: true,
-                    message: 'User authenticated !'
+                    message: 'User authenticated !',
+                    token: token
                 })
             }
         }
     });
+});
+
+router.use((req, res, next) => {
+    let token = req.body.token || req.body.query || req.headers('x-access-token');
+
+    if (token) {
+        jwt.verify(token, secret, (err, decoded) => {
+            if (err) {
+                res.json({
+                    success: false,
+                    message: 'Invalid token'
+                })
+            } else {
+                req.decoded = decoded;
+                next();
+            }
+        });
+    } else {
+        res.json({
+            success: false,
+            message: 'No token provided!'
+        })
+    }
+});
+
+router.post('/currentuser', (req, res) => {
+    res.send(req.decoded);
 })
 
 

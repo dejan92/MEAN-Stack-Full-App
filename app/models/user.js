@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt-nodejs');
+const bcryptjs = require('bcryptjs');
 
 
 const UserSchema = new Schema({
@@ -24,11 +25,22 @@ const UserSchema = new Schema({
 
 UserSchema.pre('save', (next) => {
     let user = this;
-    bcrypt.hash(user.password, null, null, function(err, hash){
+    let salt = bcrypt.genSaltSync(10);
+    bcrypt.hash(user.password, salt, null, function(err, hash){
         if (err) return next(err);
         user.password = hash;
-        next();
+        next(user.password);
     })
+
+    // //proba so bcryptJS - still not working ..
+    // bcryptjs.genSalt(10, (err, salt) => {
+        
+    //     bcryptjs.hash(user.password, salt, (err, hash) => {
+    //         if (err) return next(err);
+    //         user.password = hash;
+    //         next();
+    //     })
+    // });
 });
 
 UserSchema.methods.comparePassword = function(password){

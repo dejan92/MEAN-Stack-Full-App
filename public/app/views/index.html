@@ -22,7 +22,7 @@
     <script type="text/javascript" src="./app/services/authService.js"></script>
 </head>
 
-<body ng-controller="mainCtrl as main">
+<body ng-controller="mainCtrl as main" ng-show="main.loadme" ng-cloak>
     <div class="container">
         <!-- <header ng-include="'header.html'"></header> -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -34,22 +34,16 @@
                         <a class="nav-link" href="/home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/login">Login</a>
-                    </li>
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="#/book-list">List of Books</a>
+                        <a class="nav-link" href="/login" ng-show="!main.loggedIn">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#/add">Add new Book</a>
+                        <a class="nav-link" href="#" ng-click="main.logout" ng-show="main.loggedIn">Logout</a>
+                    </li> 
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register" ng-show="!main.loggedIn">Register</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#/contact">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#/logout">Logout</a>
-                    </li> -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="/register">Register</a>
+                        <a class="nav-link" href="/profile" ng-show="main.loggedIn">Hello {{ main.username }}</a>
                     </li>
                 </ul>
             </div>

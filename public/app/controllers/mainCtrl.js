@@ -1,7 +1,24 @@
 angular.module('mainController', ['authServices'])
 
-    .controller('mainCtrl', function (Auth, $timeout, $location) {
+    .controller('mainCtrl', function (Auth, $timeout, $location, $rootScope) {
         let app = this;
+
+        app.loadme = false;
+        $rootScope.$on('$routeChangeStart', function () {
+            
+            if (Auth.isLoggedIn()) {
+                app.isLoggedIn = true;
+                Auth.getUser().then(function (data) {
+                    app.username = data.data.username;
+                    app.useremail = data.data.email;
+                    app.loadme = true;
+                });
+            } else {
+                app.isLoggedIn = false;
+                app.username = '';
+                app.loadme = true;
+            }
+        });
 
         this.doLogin = function (checkUser) {
 
@@ -18,6 +35,8 @@ angular.module('mainController', ['authServices'])
                         app.successMsg = data.data.message;
                         $timeout(function () {
                             $location.path('/home');
+                            app.checkUser = '';
+                            app.successMsg = false;
                         }, 2000);
 
                     } else {
@@ -26,4 +45,12 @@ angular.module('mainController', ['authServices'])
                     }
                 });
         }
-    })
+
+        this.logout = function () {
+            Auth.logout();
+            $location.path('/logout');
+            $timeout(function () {
+                $location.path('/');
+            }, 2000);
+        };
+    });
