@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const appRoutes = require('./app/routes/api');
 const path = require('path');
+const passport = require('passport');
+const social = require('./app/passport/passport')(app, passport);
 
 const port = process.env.port || 5000
 const app = express();

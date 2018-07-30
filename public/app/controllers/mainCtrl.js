@@ -1,6 +1,6 @@
 angular.module('mainController', ['authServices'])
 
-    .controller('mainCtrl', function (Auth, $timeout, $location, $rootScope) {
+    .controller('mainCtrl', function (Auth, $timeout, $location, $rootScope, $window) {
         let app = this;
 
         app.loadme = false;
@@ -18,7 +18,12 @@ angular.module('mainController', ['authServices'])
                 app.username = '';
                 app.loadme = true;
             }
+            if($location.hash() == '_#_') $location.hash(null);
         });
+
+        this.facebook = function(){
+            $window.location = $window.location.protocol + '//' + $window.location.host + '/auth/facebook' ;
+        }
 
         this.doLogin = function (checkUser) {
 

@@ -9,7 +9,8 @@
         <label for="name">Password:</label>
         <input type="password" name="password" class="form-control" placeholder="please enter password" ng-model="main.checkUser.password">
     </div>
-    <button type="submit" class="btn btn-primary">Login</button>
+    <button type="submit" class="btn btn-primary">Login</button>&nbsp;
+    <button class="btn btn-success" ng-click="main.facebook();">Facebook</button></a>
 </form>
 
 <br>
@@ -29,5 +30,11 @@
 <div class="row show-hide-message" ng-show="main.errorMsg">
     <div class="alert alert-danger">
         {{ main.errorMsg }}
+    </div>
+</div>
+
+<div class="row show-hide-message" ng-show="facebook.errorMsg">
+    <div class="alert alert-danger">
+        {{ facebook.errorMsg }}
     </div>
 </div>
